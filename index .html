@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chơi bốc thăm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #resultModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #closeBtn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #bocThamBtn {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trò chơi bốc thăm</h1>
+    <button id="bocThamBtn">Bốc thăm</button>
+    <p id="remaining"></p>
+
+    <div id="resultModal">
+        <div class="modal-content">
+            <p id="modal-result"></p>
+            <button id="closeBtn">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        let laTham = ["Phương Thụy", "Minh Tuyết", "Ngọc Như", "Vinh Hoàng", "Lam Ngọc", "Tài Phạm", "Linh Nhi"];
+
+        // Xử lý logic bốc thăm
+        document.getElementById('bocThamBtn').addEventListener('click', function () {
+            if (laTham.length > 0) {
+                // Chọn ngẫu nhiên một lá thăm
+                let randomIndex = Math.floor(Math.random() * laTham.length);
+                let result = laTham[randomIndex];
+
+                // Loại lá thăm đã bốc
+                laTham.splice(randomIndex, 1);
+
+                // Hiển thị kết quả
+                document.getElementById('modal-result').textContent = "Bạn đã bốc được: " + result;
+                document.getElementById('remaining').textContent = "Lá thăm còn lại: " + laTham.join(', ');
+                document.getElementById('resultModal').style.display = "flex";
+            } else {
+                document.getElementById('modal-result').textContent = "Hết thăm!";
+                document.getElementById('remaining').textContent = "";
+                document.getElementById('resultModal').style.display = "flex";
+            }
+        });
+
+        // Đóng modal
+        document.getElementById('closeBtn').addEventListener('click', function () {
+            document.getElementById('resultModal').style.display = "none";
+        });
+    </script>
+</body>
+</html>
